@@ -1,0 +1,5 @@
+starlette==0.20.0
+uvicorn==0.17.6
+alembic==1.7.7
+sqlalchemy[asyncio]==1.4.36
+asyncpg==0.25.0
