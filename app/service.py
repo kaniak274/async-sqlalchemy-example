@@ -6,7 +6,7 @@ from .database import get_session, Tutorial as TutorialDb
 from .dto import Tutorial
 
 
-async def create_tutorial(tutorial: Tutorial) -> Tutorial:
+async def save_tutorial(tutorial: Tutorial) -> Tutorial:
     async with get_session() as session:
         tutorial_db_instance = TutorialDb(
             name=tutorial.name,

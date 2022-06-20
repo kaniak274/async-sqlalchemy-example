@@ -6,8 +6,8 @@ from starlette.routing import Route
 
 from .dto import Tutorial
 from .service import (
-    create_tutorial,
     list_tutorials,
+    save_tutorial,
 )
 
 
@@ -26,7 +26,7 @@ class TutorialEndpoints(HTTPEndpoint):
     async def post(self, request):
         data = await request.json()
         name = data["name"]
-        tutorial = await create_tutorial(Tutorial(name=name))
+        tutorial = await save_tutorial(Tutorial(name=name))
 
         return JSONResponse({
             "tutorial_id": tutorial.tutorial_id,
