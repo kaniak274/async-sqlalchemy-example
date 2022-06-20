@@ -3,5 +3,5 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Tutorial:
-    tutorial_id: int
     name: str
+    tutorial_id: int = 0
