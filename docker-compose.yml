@@ -1,0 +1,39 @@
+version: "3.9"
+
+networks:
+  async-tutorial:
+
+volumes:
+  async-tutorial-backend-cache:
+  async-tutorial-db:
+
+services:
+  async-tutorial-backend:
+    restart: "no"
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    ports:
+      - "9000:9000"
+    volumes:
+      - "./:/app"
+      - "async-tutorial-backend-cache:/root/.cache/pip"
+    environment:
+      PYTHONPATH: /app
+      DB_URL: "postgresql+asyncpg://tutorial:secret@async-tutorial-db:5432/tutorial"
+    networks:
+      async-tutorial:
+    working_dir: "/app"
+    command: ["./run.sh"]
+
+  async-tutorial-db:
+    restart: "no"
+    image: "postgres:13-alpine"
+    volumes:
+      - "async-tutorial-db:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: tutorial
+      POSTGRES_DB: tutorial
+    networks:
+      async-tutorial:
